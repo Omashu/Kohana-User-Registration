@@ -11,21 +11,24 @@ class Controller_Auth extends Controller {
 		}
 		
 		$notices = array();
-		try
+		if ($this->request->method() === Request::POST)
 		{
-			$user = ORM::factory("User")
-				->create_user($_POST, array('email','password'))
-				->add('roles', ORM::factory("Role")->where("name","=","login")->find());
+			try
+			{
+				$user = ORM::factory("User")
+					->create_user($_POST, array('email','password'))
+					->add('roles', ORM::factory("Role")->where("name","=","login")->find());
 
-			// авторизуемся
-			Auth::instance()->force_login($user->email);
+				// авторизуемся
+				Auth::instance()->force_login($user->email);
 
-			// success
-			$this->redirect(URL::site('/'));
+				// success
+				$this->redirect(URL::site('/'));
 
-		} catch (ORM_Validation_Exception $e)
-		{
-			$notices['error'] = $e->errors('models');
+			} catch (ORM_Validation_Exception $e)
+			{
+				$notices['error'] = $e->errors('models');
+			}
 		}
 
 		$this->response->body(View::factory("auth/signup", array('notices'=>$notices)));
