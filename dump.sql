@@ -55,13 +55,6 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   KEY `fk_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `roles_users`
---
-
-INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES
-(5, 1);
-
 -- --------------------------------------------------------
 
 --
