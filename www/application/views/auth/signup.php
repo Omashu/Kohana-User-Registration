@@ -67,12 +67,7 @@
 				return val.match(new RegExp("^.{8,}$", ""))
 			},
 			password_confirm : function(o) {
-				if (self.fields['password'].val() !== o.val())
-				{
-					return false;
-				}
-
-				return true;
+				return self.fields['password'].val() === o.val();
 			}
 		};
 
